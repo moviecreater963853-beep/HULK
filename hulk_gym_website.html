@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hulk Unisex Gym — Dombivali</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#1a6b3a;
+  --green-bright:#22c55e;
+  --green-neon:#4ade80;
+  --green-dark:#0d3d21;
+  --black:#050a07;
+  --white:#ffffff;
+  --gray-light:#f4f7f5;
+  --gray-mid:#e2e8e4;
+  --gray-text:#6b7c72;
+  --gold:#c9a84c;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:#fff;color:#050a07;overflow-x:hidden;cursor:none}
+
+/* CUSTOM CURSOR */
+.cursor{position:fixed;width:12px;height:12px;background:#1a6b3a;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.1s;mix-blend-mode:multiply}
+.cursor-ring{position:fixed;width:40px;height:40px;border:1.5px solid #1a6b3a;border-radius:50%;pointer-events:none;z-index:9998;transition:all 0.15s ease;opacity:0.5}
+
+/* LOADER */
+.loader{position:fixed;inset:0;background:#050a07;z-index:9000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s ease}
+.loader.hide{opacity:0;pointer-events:none}
+.loader-logo{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:#fff;letter-spacing:8px;overflow:hidden}
+.loader-logo span{display:inline-block;animation:loadDrop 0.6s ease forwards;opacity:0}
+.loader-logo span:nth-child(1){animation-delay:0.1s}
+.loader-logo span:nth-child(2){animation-delay:0.2s}
+.loader-logo span:nth-child(3){animation-delay:0.3s}
+.loader-logo span:nth-child(4){animation-delay:0.4s}
+.loader-logo span:nth-child(5){animation-delay:0.5s}
+.loader-bar{width:200px;height:2px;background:rgba(255,255,255,0.1);margin-top:2rem;overflow:hidden}
+.loader-progress{height:100%;background:#22c55e;animation:loadBar 1.8s ease forwards}
+.loader-sub{color:rgba(255,255,255,0.3);font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;margin-top:1rem;animation:fadeIn 1s ease 0.5s forwards;opacity:0}
+@keyframes loadDrop{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loadBar{from{width:0}to{width:100%}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.5rem 4%;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s ease}
+nav.scrolled{background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);padding:1rem 4%;box-shadow:0 1px 30px rgba(0,0,0,0.08)}
+.nav-logo{display:flex;align-items:center;gap:0.8rem;text-decoration:none}
+.nav-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,#1a6b3a,#22c55e);display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.nav-logo-icon svg{width:20px;height:20px;fill:#fff}
+.nav-logo-text{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:2px;color:#fff;text-transform:uppercase;line-height:1.1;transition:color 0.4s}
+nav.scrolled .nav-logo-text{color:#050a07}
+.nav-logo-sub{font-size:0.55rem;font-weight:300;letter-spacing:3px;color:rgba(255,255,255,0.6);text-transform:uppercase;transition:color 0.4s}
+nav.scrolled .nav-logo-sub{color:#6b7c72}
+.nav-menu{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-menu a{font-size:0.78rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,0.85);transition:color 0.3s;position:relative}
+nav.scrolled .nav-menu a{color:#050a07}
+.nav-menu a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:#22c55e;transition:width 0.3s}
+.nav-menu a:hover::after{width:100%}
+.nav-menu a:hover{color:#22c55e}
+nav.scrolled .nav-menu a:hover{color:#1a6b3a}
+.nav-cta{background:#1a6b3a;color:#fff;padding:0.65rem 1.6rem;font-size:0.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:none;cursor:none;transition:all 0.3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.nav-cta:hover{background:#22c55e;transform:translateY(-2px)}
+.nav-whatsapp{display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.85);font-size:0.75rem;font-weight:500;letter-spacing:1px;text-decoration:none;transition:color 0.3s}
+nav.scrolled .nav-whatsapp{color:#050a07}
+.nav-whatsapp svg{width:18px;height:18px;fill:currentColor}
+.nav-whatsapp:hover{color:#22c55e}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(5,10,7,0.92) 0%,rgba(5,10,7,0.75) 50%,rgba(5,10,7,0.3) 100%)}
+.hero-left{position:relative;z-index:2;padding:8rem 5% 6rem 5%}
+.hero-eyebrow{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+.hero-eyebrow-line{width:40px;height:1.5px;background:#22c55e}
+.hero-eyebrow-text{font-size:0.7rem;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:#22c55e}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,9vw,8.5rem);line-height:0.88;color:#fff;margin-bottom:2rem;letter-spacing:1px}
+.hero-h1 .accent{color:#22c55e;display:block;-webkit-text-stroke:0px;text-shadow:0 0 40px rgba(34,197,94,0.3)}
+.hero-h1 .outline{-webkit-text-stroke:1.5px rgba(255,255,255,0.3);color:transparent;display:block}
+.hero-desc{font-size:1rem;color:rgba(255,255,255,0.6);font-weight:300;line-height:1.9;max-width:420px;margin-bottom:3rem;letter-spacing:0.3px}
+.hero-actions{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
+.btn-hero-primary{display:inline-flex;align-items:center;gap:0.8rem;background:#1a6b3a;color:#fff;padding:1rem 2.2rem;font-size:0.8rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;border:none;cursor:none;transition:all 0.3s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);text-decoration:none}
+.btn-hero-primary:hover{background:#22c55e;color:#050a07;transform:translateY(-3px)}
+.btn-hero-primary svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;transition:transform 0.3s}
+.btn-hero-primary:hover svg{transform:translateX(4px)}
+.btn-hero-outline{display:inline-flex;align-items:center;gap:0.8rem;background:transparent;color:#fff;padding:1rem 2.2rem;font-size:0.8rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;border:1.5px solid rgba(255,255,255,0.25);cursor:none;transition:all 0.3s;text-decoration:none}
+.btn-hero-outline:hover{border-color:#22c55e;color:#22c55e}
+.hero-right{position:relative;z-index:2;padding:8rem 5% 6rem 2%;display:flex;flex-direction:column;justify-content:flex-end;gap:1.5rem}
+.hero-stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(10px);padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;transition:all 0.3s}
+.hero-stat-card:hover{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.3);transform:translateX(-8px)}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:3.2rem;color:#22c55e;line-height:1;min-width:80px}
+.hero-stat-info-label{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.3rem}
+.hero-stat-info-val{font-size:0.95rem;font-weight:500;color:#fff}
+.hero-scroll{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.8rem;color:rgba(255,255,255,0.3);font-size:0.65rem;letter-spacing:3px;text-transform:uppercase}
+.hero-scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(34,197,94,0.6),transparent);animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
+
+/* TICKER */
+.ticker{background:#050a07;padding:1rem 0;overflow:hidden;border-top:1px solid #1a6b3a;border-bottom:1px solid rgba(26,107,58,0.3)}
+.ticker-inner{display:inline-flex;animation:ticker 25s linear infinite;white-space:nowrap}
+.ticker-item{font-family:'Oswald',sans-serif;font-size:0.9rem;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);padding:0 2.5rem}
+.ticker-item.highlight{color:#22c55e}
+.ticker-sep{color:#1a6b3a;padding:0 0.5rem}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTION COMMON */
+.section-tag{display:inline-flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem}
+.section-tag-line{width:28px;height:1.5px;background:#1a6b3a}
+.section-tag-text{font-size:0.7rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#1a6b3a}
+.section-h2{font-family:'Oswald',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:600;letter-spacing:1px;line-height:1.05;text-transform:uppercase}
+.section-h2 span{color:#1a6b3a}
+
+/* FEATURES STRIP */
+.features-strip{padding:6rem 4%;background:#f4f7f5}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1300px;margin:0 auto}
+.feat-card{background:#fff;padding:3rem 2.5rem;position:relative;overflow:hidden;transition:all 0.4s;border:1px solid transparent}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1a6b3a,#22c55e);transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+.feat-card:hover::before{transform:scaleX(1)}
+.feat-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(26,107,58,0.1);border-color:rgba(26,107,58,0.1)}
+.feat-icon{width:56px;height:56px;background:#050a07;display:flex;align-items:center;justify-content:center;margin-bottom:2rem;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);transition:background 0.3s}
+.feat-card:hover .feat-icon{background:#1a6b3a}
+.feat-icon svg{width:22px;height:22px;stroke:#22c55e;fill:none;stroke-width:1.5}
+.feat-num{position:absolute;top:2rem;right:2rem;font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(0,0,0,0.04);line-height:1}
+.feat-title{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.8rem}
+.feat-desc{font-size:0.88rem;color:#6b7c72;line-height:1.8;font-weight:300}
+.feat-link{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.5rem;font-size:0.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#1a6b3a;text-decoration:none;transition:gap 0.3s}
+.feat-link:hover{gap:0.9rem}
+.feat-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* ABOUT */
+.about{padding:8rem 4%;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center}
+.about-visual{position:relative}
+.about-img-main{width:100%;height:580px;object-fit:cover;filter:grayscale(10%)}
+.about-img-accent{position:absolute;bottom:-2.5rem;right:-2.5rem;width:220px;height:280px;object-fit:cover;border:6px solid #fff;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
+.about-badge{position:absolute;top:2rem;left:-1.5rem;background:#1a6b3a;color:#fff;padding:1.5rem;text-align:center;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.about-badge-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:#22c55e}
+.about-badge-text{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;margin-top:0.3rem;color:rgba(255,255,255,0.7)}
+.about-content .section-h2{margin-bottom:1.5rem}
+.about-content p{font-size:0.95rem;color:#6b7c72;line-height:1.9;font-weight:300;margin-bottom:1rem}
+.about-pillars{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2.5rem 0}
+.pillar{padding:1.2rem;border-left:2px solid #22c55e;background:#f4f7f5}
+.pillar-title{font-size:0.85rem;font-weight:700;letter-spacing:0.5px;margin-bottom:0.3rem;color:#050a07}
+.pillar-desc{font-size:0.78rem;color:#6b7c72;font-weight:300;line-height:1.6}
+.btn-about{display:inline-flex;align-items:center;gap:0.8rem;background:#050a07;color:#fff;padding:0.9rem 2rem;font-size:0.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all 0.3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+.btn-about:hover{background:#1a6b3a;transform:translateY(-2px)}
+.btn-about svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;transition:transform 0.3s}
+.btn-about:hover svg{transform:translateX(4px)}
+
+/* LOCATION */
+.location-strip{background:#050a07;padding:5rem 4%}
+.location-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:center}
+.location-left .section-h2{color:#fff;margin-bottom:1rem}
+.location-left p{color:rgba(255,255,255,0.45);font-size:0.9rem;line-height:1.8;font-weight:300}
+.location-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);padding:2.5rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;transition:all 0.3s}
+.location-card:hover{border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.03)}
+.location-icon-wrap{width:52px;height:52px;background:#1a6b3a;display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.location-icon-wrap svg{width:20px;height:20px;fill:#22c55e}
+.location-name{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:0.5rem}
+.location-addr{font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;margin-bottom:1.2rem}
+.location-meta{display:flex;gap:2rem;flex-wrap:wrap}
+.location-meta-item{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:rgba(255,255,255,0.35);font-weight:300}
+.location-meta-item svg{width:14px;height:14px;stroke:#22c55e;fill:none;stroke-width:1.5}
+.location-timing{border-top:1px solid rgba(255,255,255,0.07);padding-top:2rem;margin-top:2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center}
+.timing-item{padding:1.2rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)}
+.timing-day{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.5rem}
+.timing-time{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:500;color:#22c55e;letter-spacing:1px}
+
+/* SERVICES */
+.services{padding:8rem 4%;background:#f4f7f5}
+.services-header{text-align:center;margin-bottom:5rem}
+.services-header .section-tag{justify-content:center}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;max-width:1300px;margin:0 auto}
+.service-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:none}
+.service-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.7s ease;filter:brightness(0.55)}
+.service-card:hover img{transform:scale(1.1);filter:brightness(0.3)}
+.service-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem}
+.service-icon{width:44px;height:44px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;transition:all 0.4s}
+.service-card:hover .service-icon{background:#1a6b3a;border-color:#1a6b3a}
+.service-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.5}
+.service-name{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:0.5rem;line-height:1.2}
+.service-desc{font-size:0.78rem;color:rgba(255,255,255,0);line-height:1.6;transition:color 0.4s;font-weight:300}
+.service-card:hover .service-desc{color:rgba(255,255,255,0.7)}
+.service-tag{position:absolute;top:1.2rem;left:1.2rem;background:#1a6b3a;color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.3rem 0.7rem;opacity:0;transition:opacity 0.3s}
+.service-card:hover .service-tag{opacity:1}
+
+/* GALLERY */
+.gallery{padding:8rem 4%;max-width:1300px;margin:0 auto}
+.gallery-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem}
+.gallery-mosaic{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:240px 240px;gap:3px}
+.gal-item{overflow:hidden;position:relative}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease,filter 0.4s;filter:grayscale(20%)}
+.gal-item:hover img{transform:scale(1.06);filter:grayscale(0%)}
+.gal-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(5,10,7,0.5),transparent);opacity:0;transition:opacity 0.3s}
+.gal-item:hover::after{opacity:1}
+.gal-1{grid-column:span 5;grid-row:span 2}
+.gal-2{grid-column:span 4}
+.gal-3{grid-column:span 3}
+.gal-4{grid-column:span 3}
+.gal-5{grid-column:span 4}
+.gal-view-all{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#1a6b3a;text-decoration:none;border-bottom:1.5px solid #1a6b3a;padding-bottom:2px;transition:gap 0.3s}
+.gal-view-all:hover{gap:1rem}
+.gal-view-all svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* TESTIMONIALS */
+.testimonials{background:#050a07;padding:8rem 4%}
+.test-inner{max-width:1300px;margin:0 auto}
+.test-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+.test-header .section-h2{color:#fff}
+.test-nav{display:flex;gap:0.8rem}
+.test-nav-btn{width:44px;height:44px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s}
+.test-nav-btn:hover{background:#1a6b3a;border-color:#1a6b3a}
+.test-nav-btn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.5}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px}
+.test-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);padding:2.8rem;position:relative;overflow:hidden;transition:all 0.4s}
+.test-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(34,197,94,0.06),transparent);opacity:0;transition:opacity 0.4s}
+.test-card:hover::before{opacity:1}
+.test-card:hover{border-color:rgba(34,197,94,0.2);transform:translateY(-4px)}
+.test-quote-mark{font-family:'Bebas Neue',sans-serif;font-size:7rem;color:rgba(34,197,94,0.08);line-height:0.7;margin-bottom:1.5rem}
+.test-text{font-size:0.9rem;color:rgba(255,255,255,0.55);line-height:1.9;font-weight:300;font-style:italic;margin-bottom:2rem}
+.test-stars{display:flex;gap:3px;margin-bottom:1.2rem}
+.test-star{width:12px;height:12px;background:#c9a84c;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.test-author{display:flex;align-items:center;gap:1.2rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:1.5rem}
+.test-avatar-ring{width:48px;height:48px;border-radius:50%;border:2px solid rgba(34,197,94,0.3);overflow:hidden;flex-shrink:0}
+.test-avatar-ring img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%)}
+.test-author-name{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:#fff}
+.test-author-tag{font-size:0.7rem;color:#22c55e;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;margin-top:0.2rem}
+
+/* ENQUIRY */
+.enquiry{padding:8rem 4%;background:#f4f7f5}
+.enquiry-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:center}
+.enquiry-left .section-h2{margin-bottom:1.5rem}
+.enquiry-left p{font-size:0.95rem;color:#6b7c72;line-height:1.9;font-weight:300;margin-bottom:2.5rem}
+.enquiry-info{display:flex;flex-direction:column;gap:1.5rem}
+.info-item{display:flex;align-items:flex-start;gap:1.2rem}
+.info-icon{width:44px;height:44px;background:#050a07;display:flex;align-items:center;justify-content:center;flex-shrink:0;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.info-icon svg{width:18px;height:18px;stroke:#22c55e;fill:none;stroke-width:1.5}
+.info-label{font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;color:#6b7c72;margin-bottom:0.3rem}
+.info-val{font-size:0.9rem;font-weight:600;color:#050a07}
+.enquiry-form{background:#fff;padding:3.5rem;box-shadow:0 20px 80px rgba(0,0,0,0.06)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:0.65rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#050a07;margin-bottom:0.6rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:#f4f7f5;border:1px solid transparent;padding:0.9rem 1.2rem;font-size:0.88rem;font-family:'Outfit',sans-serif;color:#050a07;transition:all 0.3s;outline:none;border-radius:0}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#1a6b3a;background:#fff;box-shadow:0 0 0 3px rgba(26,107,58,0.06)}
+.form-group textarea{resize:none;height:120px}
+.form-group select{cursor:none}
+.btn-form{width:100%;background:#050a07;color:#fff;padding:1rem;font-size:0.8rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;border:none;cursor:none;transition:all 0.3s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);margin-top:0.5rem}
+.btn-form:hover{background:#1a6b3a}
+
+/* CTA BANNER */
+.cta-banner{position:relative;overflow:hidden;min-height:500px;display:flex;align-items:center}
+.cta-bg{position:absolute;inset:0}
+.cta-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(0.2)}
+.cta-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#050a07 0%,rgba(5,10,7,0.6) 100%)}
+.cta-inner{position:relative;z-index:2;padding:6rem 4%;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center}
+.cta-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5.5rem);color:#fff;line-height:0.9;letter-spacing:2px}
+.cta-h2 span{color:#22c55e;display:block}
+.cta-subtext{color:rgba(255,255,255,0.45);font-size:0.9rem;font-weight:300;margin-top:1rem;line-height:1.7}
+.cta-actions{display:flex;flex-direction:column;gap:1rem;align-items:flex-end}
+.cta-actions .btn-hero-primary{white-space:nowrap}
+
+/* FOOTER */
+footer{background:#020704;color:#fff;padding:6rem 4% 2.5rem}
+.footer-top{display:grid;grid-template-columns:2.5fr 1fr 1fr 1.5fr;gap:5rem;padding-bottom:5rem;border-bottom:1px solid rgba(255,255,255,0.05);max-width:1300px;margin:0 auto}
+.footer-brand{}
+.footer-logo-wrap{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.footer-logo-icon{width:48px;height:48px;background:linear-gradient(135deg,#1a6b3a,#22c55e);display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.footer-logo-icon svg{width:22px;height:22px;fill:#fff}
+.footer-logo-name{font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.footer-logo-sub{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+.footer-tagline{font-size:0.88rem;color:rgba(255,255,255,0.35);line-height:1.8;font-weight:300;max-width:260px;margin-bottom:2rem}
+.footer-social{display:flex;gap:0.7rem}
+.social-btn{width:38px;height:38px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s;font-family:'Oswald',sans-serif;font-size:0.65rem;letter-spacing:1px;color:rgba(255,255,255,0.35)}
+.social-btn:hover{background:#1a6b3a;border-color:#1a6b3a;color:#fff}
+.footer-col-title{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#22c55e;margin-bottom:2rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:1rem}
+.footer-col ul li a{font-size:0.85rem;color:rgba(255,255,255,0.35);text-decoration:none;font-weight:300;letter-spacing:0.3px;transition:color 0.2s;display:flex;align-items:center;gap:0.5rem}
+.footer-col ul li a:hover{color:#22c55e}
+.footer-col ul li a::before{content:'';width:12px;height:1px;background:rgba(34,197,94,0.4);flex-shrink:0;transition:width 0.3s}
+.footer-col ul li a:hover::before{width:20px;background:#22c55e}
+.footer-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.footer-gal-item{aspect-ratio:1;overflow:hidden}
+.footer-gal-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(50%) brightness(0.6);transition:all 0.3s}
+.footer-gal-item:hover img{filter:grayscale(0%) brightness(0.8)}
+.footer-bottom{max-width:1300px;margin:2.5rem auto 0;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:0.75rem;color:rgba(255,255,255,0.2);letter-spacing:0.5px}
+.footer-copy span{color:#22c55e}
+.footer-credits{font-size:0.7rem;color:rgba(255,255,255,0.15);letter-spacing:0.5px}
+
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:2.5rem;right:2.5rem;z-index:400;background:#25d366;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(37,211,102,0.4);transition:all 0.3s;cursor:none;text-decoration:none}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(37,211,102,0.5)}
+.wa-float svg{width:28px;height:28px;fill:#fff}
+.wa-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,0.4);animation:waPulse 2s ease infinite}
+@keyframes waPulse{0%{transform:scale(1);opacity:1}100%{transform:scale(1.4);opacity:0}}
+
+/* BACK TO TOP */
+.back-top{position:fixed;bottom:2.5rem;left:2.5rem;z-index:400;width:44px;height:44px;background:#050a07;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s;opacity:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.back-top.show{opacity:1}
+.back-top:hover{background:#1a6b3a;border-color:#1a6b3a}
+.back-top svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.5}
+
+/* ANIMATIONS */
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-logo">
+    <span>H</span><span>U</span><span>L</span><span>K</span>
+  </div>
+  <div class="loader-bar"><div class="loader-progress"></div></div>
+  <div class="loader-sub">Dombivali's Finest Gym</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 17.5h11M12 2v20M4 9l8-7 8 7M4 15l8 7 8-7"/></svg>
+    </div>
+    <div>
+      <div class="nav-logo-text">The Hulk Gym</div>
+      <div class="nav-logo-sub">Unisex · Dombivali</div>
+    </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1.5rem">
+    <a href="https://wa.me/919999999999" class="nav-whatsapp">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.998 2.003a9.997 9.997 0 00-8.573 15.152L2.004 22l4.966-1.391A9.997 9.997 0 1011.998 2.003z"/></svg>
+      WhatsApp
+    </a>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Free Trial</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=100&fit=crop" alt="The Hulk Unisex Gym">
+  </div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Dombivali's No.1 Unisex Gym</div>
+    </div>
+    <h1 class="hero-h1">
+      <span>BUILD</span>
+      <span class="accent">THE</span>
+      <span class="outline">HULK</span>
+      <span>IN YOU</span>
+    </h1>
+    <p class="hero-desc">Where ordinary people become extraordinary. State-of-the-art equipment, elite coaching, and a community that pushes you to your absolute limit — every single day.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-hero-primary">
+        Start Free Trial
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#services" class="btn-hero-outline">Explore Programs</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-card">
+      <div class="hero-stat-num">5K+</div>
+      <div>
+        <div class="hero-stat-info-label">Active Members</div>
+        <div class="hero-stat-info-val">Growing every month</div>
+      </div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="hero-stat-num">15+</div>
+      <div>
+        <div class="hero-stat-info-label">Expert Trainers</div>
+        <div class="hero-stat-info-val">Certified professionals</div>
+      </div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="hero-stat-num">8</div>
+      <div>
+        <div class="hero-stat-info-label">Years in Dombivali</div>
+        <div class="hero-stat-info-val">Trusted by the community</div>
+      </div>
+    </div>
+    <div class="hero-stat-card">
+      <div class="hero-stat-num">20K</div>
+      <div>
+        <div class="hero-stat-info-label">Sq Ft Facility</div>
+        <div class="hero-stat-info-val">Premium equipment</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item highlight">Strength Training</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Cardio Vascular</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Personal Training</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Group Training</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Diet Counseling</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Fitness Counseling</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Aerobics & Power Yoga</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Steam Bath</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Massage Therapy</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Open 6AM–10PM</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Strength Training</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Cardio Vascular</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Personal Training</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Group Training</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Diet Counseling</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Fitness Counseling</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Aerobics & Power Yoga</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Steam Bath</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item highlight">Massage Therapy</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Open 6AM–10PM</span><span class="ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-strip reveal">
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-num">01</div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="feat-title">Certified Expert Coaches</div>
+      <p class="feat-desc">Our coaches hold national-level certifications and have years of hands-on experience across strength, cardio, yoga, and sports-specific training.</p>
+      <a href="#" class="feat-link">Learn More <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">02</div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <div class="feat-title">100% Personalized Approach</div>
+      <p class="feat-desc">Every member gets a fully customized workout and nutrition plan tailored to their unique body type, goals, and fitness level. No cookie-cutter programs.</p>
+      <a href="#" class="feat-link">Learn More <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="feat-card">
+      <div class="feat-num">03</div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="3" height="10"/><rect x="19" y="7" width="3" height="10"/><path d="M5 10h4M5 14h4M15 10h4M15 14h4M9 4h6v16H9z"/></svg>
+      </div>
+      <div class="feat-title">Premium Equipment</div>
+      <p class="feat-desc">We partner with world-leading fitness equipment brands to ensure you train with the best machines, free weights, and functional training tools available.</p>
+      <a href="#" class="feat-link">Learn More <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual reveal">
+    <img class="about-img-main" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=100&fit=crop" alt="The Hulk Gym Interior">
+    <img class="about-img-accent" src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=100&fit=crop" alt="Training">
+    <div class="about-badge">
+      <div class="about-badge-num">8+</div>
+      <div class="about-badge-text">Years of<br>Excellence</div>
+    </div>
+  </div>
+  <div class="about-content reveal">
+    <div class="section-tag"><div class="section-tag-line"></div><div class="section-tag-text">Our Story</div></div>
+    <h2 class="section-h2">Welcome to<br><span>The Hulk</span><br>Unisex Gym</h2>
+    <p>The Hulk Unisex Gym is Dombivali's most trusted fitness destination — built for everyone, from beginners to seasoned athletes. We believe that fitness is not a destination, it's a way of life.</p>
+    <p>Our 20,000 sq ft facility in the heart of Dombivali is equipped with cutting-edge machines, dedicated zones for strength, cardio, yoga, and recovery — all under one roof, for men and women equally.</p>
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-title">Unisex Environment</div>
+        <div class="pillar-desc">Safe, inclusive, motivating space for all genders</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-title">All Age Groups</div>
+        <div class="pillar-desc">Programs from teenagers to senior fitness</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-title">Science-Based</div>
+        <div class="pillar-desc">Evidence-backed training & nutrition protocols</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-title">Open 6AM–10PM</div>
+        <div class="pillar-desc">Mon–Sat. Sunday evening sessions available</div>
+      </div>
+    </div>
+    <a href="#contact" class="btn-about">Join Our Community <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<div class="location-strip" id="location">
+  <div class="location-inner">
+    <div class="location-left reveal">
+      <div class="section-tag"><div class="section-tag-line"></div><div class="section-tag-text" style="color:#22c55e">Find Us</div></div>
+      <h2 class="section-h2" style="color:#fff">Visit<br><span style="color:#22c55e">Our Gym</span></h2>
+      <p>Conveniently located in the heart of Dombivali, easily accessible by road and rail. Come visit us and experience the difference yourself.</p>
+    </div>
+    <div class="reveal" style="width:100%">
+      <div class="location-card">
+        <div class="location-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div>
+          <div class="location-name">The Hulk Unisex Gym</div>
+          <div class="location-addr">Dombivali, Maharashtra — Exact address on WhatsApp confirmation<br>Near major landmark, easily accessible</div>
+          <div class="location-meta">
+            <div class="location-meta-item"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.83 19.79 19.79 0 01.44 2.18 2 2 0 012.41 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l.78-.78a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+91 99999 99999</div>
+            <div class="location-meta-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@thehulkgym.in</div>
+          </div>
+        </div>
+      </div>
+      <div class="location-timing">
+        <div class="timing-item">
+          <div class="timing-day">Monday – Friday</div>
+          <div class="timing-time">6:00 AM – 10:00 PM</div>
+        </div>
+        <div class="timing-item">
+          <div class="timing-day">Saturday</div>
+          <div class="timing-time">6:00 AM – 10:00 PM</div>
+        </div>
+        <div class="timing-item">
+          <div class="timing-day">Sunday</div>
+          <div class="timing-time">5:00 PM – 9:00 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div class="section-tag"><div class="section-tag-line"></div><div class="section-tag-text">What We Offer</div></div>
+    <h2 class="section-h2">Our <span>Training</span> Programs</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&q=100&fit=crop" alt="Cardio">
+      <div class="service-overlay">
+        <span class="service-tag">Popular</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="service-name">Cardio Vascular Training</div>
+        <div class="service-desc">Boost stamina and burn fat with guided cardio sessions on premium machines</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1571388208497-71bedc66e932?w=800&q=100&fit=crop" alt="Personal Training">
+      <div class="service-overlay">
+        <span class="service-tag">1-on-1</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+        <div class="service-name">Personal Training</div>
+        <div class="service-desc">Dedicated coach, fully customized program designed just for you</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=100&fit=crop" alt="Group Training">
+      <div class="service-overlay">
+        <span class="service-tag">Fun</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="service-name">Group Training</div>
+        <div class="service-desc">Energetic group sessions that keep you motivated and accountable</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=100&fit=crop" alt="Diet Counseling">
+      <div class="service-overlay">
+        <span class="service-tag">Essential</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg></div>
+        <div class="service-name">Diet Counseling</div>
+        <div class="service-desc">Science-backed meal planning and nutrition guidance for real results</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&q=100&fit=crop" alt="Fitness Counseling">
+      <div class="service-overlay">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M9 19V6l12-3v13"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <div class="service-name">Fitness Counseling</div>
+        <div class="service-desc">Expert assessment, goal setting, and ongoing progress monitoring</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=100&fit=crop" alt="Yoga">
+      <div class="service-overlay">
+        <span class="service-tag">Wellness</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7c-2.5 3-5 5-5 8M12 7c2.5 3 5 5 5 8M8 15c1.5 2 5 3 8 0"/></svg></div>
+        <div class="service-name">Aerobics & Power Yoga</div>
+        <div class="service-desc">Mind-body connection through high-energy aerobics and power yoga flows</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=100&fit=crop" alt="Steam Bath">
+      <div class="service-overlay">
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M8 4c0 2 2 4 2 6s-2 4-2 6M12 2c0 2 2 4 2 6s-2 4-2 6M16 4c0 2 2 4 2 6s-2 4-2 6M4 20h16"/></svg></div>
+        <div class="service-name">Steam Bath</div>
+        <div class="service-desc">Post-workout recovery and deep relaxation in our premium steam chamber</div>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1611073615830-9e3584d9c2a5?w=800&q=100&fit=crop" alt="Massage">
+      <div class="service-overlay">
+        <span class="service-tag">Recovery</span>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div class="service-name">Various Massages</div>
+        <div class="service-desc">Therapeutic sports massage and relaxation therapies for full body recovery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-header reveal">
+    <div>
+      <div class="section-tag"><div class="section-tag-line"></div><div class="section-tag-text">Inside The Hulk</div></div>
+      <h2 class="section-h2">Our <span>Facility</span></h2>
+    </div>
+    <a href="#" class="gal-view-all">View Full Gallery <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+  <div class="gallery-mosaic reveal">
+    <div class="gal-item gal-1"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=100&fit=crop" alt="Gym Main Floor"></div>
+    <div class="gal-item gal-2"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=900&q=100&fit=crop" alt="Equipment"></div>
+    <div class="gal-item gal-3"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=100&fit=crop" alt="Training"></div>
+    <div class="gal-item gal-4"><img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=800&q=100&fit=crop" alt="Weights"></div>
+    <div class="gal-item gal-5"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=100&fit=crop" alt="HIIT"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="test-inner">
+    <div class="test-header reveal">
+      <div>
+        <div class="section-tag"><div class="section-tag-line"></div><div class="section-tag-text" style="color:#22c55e">Member Reviews</div></div>
+        <h2 class="section-h2" style="color:#fff">Real <span style="color:#22c55e">Results</span>,<br>Real People</h2>
+      </div>
+      <div class="test-nav">
+        <button class="test-nav-btn"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
+        <button class="test-nav-btn"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="test-grid reveal">
+      <div class="test-card">
+        <div class="test-quote-mark">"</div>
+        <div class="test-stars"><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div></div>
+        <p class="test-text">The Hulk Gym is genuinely the best gym in Dombivali. The trainers actually care about your progress, the equipment is top-notch, and the environment is incredibly motivating. Lost 18kg in 5 months!</p>
+        <div class="test-author">
+          <div class="test-avatar-ring"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=100&fit=crop&crop=face" alt="Member"></div>
+          <div>
+            <div class="test-author-name">Rahul Deshmukh</div>
+            <div class="test-author-tag">Member since 2022 · Lost 18kg</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote-mark">"</div>
+        <div class="test-stars"><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div></div>
+        <p class="test-text">As a woman, I was nervous about joining a gym. The Hulk Gym is truly unisex — the staff is respectful, the women's section is excellent, and I never feel uncomfortable. Best decision I made!</p>
+        <div class="test-author">
+          <div class="test-avatar-ring"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=100&fit=crop&crop=face" alt="Member"></div>
+          <div>
+            <div class="test-author-name">Priya Kulkarni</div>
+            <div class="test-author-tag">Member since 2023 · Strength Goals</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-quote-mark">"</div>
+        <div class="test-stars"><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div><div class="test-star"></div></div>
+        <p class="test-text">I've tried many gyms in the area. The Hulk is different. The personal training program is exceptional, and the diet counseling actually works. I gained 8kg of muscle in 6 months. Absolutely outstanding.</p>
+        <div class="test-author">
+          <div class="test-avatar-ring"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=100&fit=crop&crop=face" alt="Member"></div>
+          <div>
+            <div class="test-author-name">Aditya Nair</div>
+            <div class="test-author-tag">Member since 2021 · Gained 8kg muscle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENQUIRY FORM -->
+<section class="enquiry" id="contact">
+  <div class="enquiry-inner">
+    <div class="enquiry-left reveal">
+      <div class="section-tag"><div class="section-tag-line"></div><div class="section-tag-text">Get In Touch</div></div>
+      <h2 class="section-h2">Start Your<br><span>Fitness</span><br>Journey Today</h2>
+      <p>Fill the form and our team will contact you within 24 hours to set up your free trial session. No commitment needed — just come and feel the difference.</p>
+      <div class="enquiry-info">
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-val">Dombivali, Maharashtra</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.83 19.79 19.79 0 01.44 2.18 2 2 0 012.41 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l.78-.78a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-val">+91 99999 99999</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="info-label">Timings</div>
+            <div class="info-val">Mon–Sat: 6AM–10PM &nbsp;|&nbsp; Sun: 5PM–9PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="enquiry-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 00000 00000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Interested In</label>
+        <select>
+          <option>Select a program</option>
+          <option>Personal Training</option>
+          <option>Group Training</option>
+          <option>Cardio Vascular Training</option>
+          <option>Diet Counseling</option>
+          <option>Aerobics & Power Yoga</option>
+          <option>Steam Bath & Massage</option>
+          <option>General Membership</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message (Optional)</label>
+        <textarea placeholder="Tell us your fitness goals..."></textarea>
+      </div>
+      <button class="btn-form" type="button">Send Enquiry — Get Free Trial</button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-bg"><img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1920&q=100&fit=crop" alt="CTA"></div>
+  <div class="cta-inner">
+    <div>
+      <h2 class="cta-h2">READY TO<span>BECOME</span>UNSTOPPABLE?</h2>
+      <p class="cta-subtext">Join 5,000+ members who chose The Hulk Unisex Gym. First session is always free. No excuses — just results.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="#contact" class="btn-hero-primary" style="clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%)">
+        Claim Free Trial
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://wa.me/919999999999" class="btn-hero-outline" style="white-space:nowrap">WhatsApp Us</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <div class="footer-logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 17.5h11M12 2v20M4 9l8-7 8 7M4 15l8 7 8-7"/></svg>
+        </div>
+        <div>
+          <div class="footer-logo-name">The Hulk Unisex Gym</div>
+          <div class="footer-logo-sub">Dombivali, Maharashtra</div>
+        </div>
+      </div>
+      <p class="footer-tagline">Fitness is not a destination — it's a way of life. At The Hulk, we make that journey extraordinary for every single member.</p>
+      <div class="footer-social">
+        <div class="social-btn">IG</div>
+        <div class="social-btn">FB</div>
+        <div class="social-btn">YT</div>
+        <div class="social-btn">WA</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Quick Links</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Our Programs</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Our Services</div>
+      <ul>
+        <li><a href="#">Cardio Vascular Training</a></li>
+        <li><a href="#">Personal Training</a></li>
+        <li><a href="#">Group Training</a></li>
+        <li><a href="#">Diet Counseling</a></li>
+        <li><a href="#">Fitness Counseling</a></li>
+        <li><a href="#">Aerobics & Power Yoga</a></li>
+        <li><a href="#">Steam Bath</a></li>
+        <li><a href="#">Massage Therapy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Photo Gallery</div>
+      <div class="footer-gallery-grid">
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&q=80&fit=crop" alt="g1"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=200&q=80&fit=crop" alt="g2"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&q=80&fit=crop" alt="g3"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=200&q=80&fit=crop" alt="g4"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&q=80&fit=crop" alt="g5"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=200&q=80&fit=crop" alt="g6"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=200&q=80&fit=crop" alt="g7"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=200&q=80&fit=crop" alt="g8"></div>
+        <div class="footer-gal-item"><img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&q=80&fit=crop" alt="g9"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>The Hulk Unisex Gym</span>, Dombivali. All rights reserved.</div>
+    <div class="footer-credits">Designed with passion for fitness excellence</div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919999999999" class="wa-float" target="_blank">
+  <div class="wa-pulse"></div>
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.998 2.003a9.997 9.997 0 00-8.573 15.152L2.004 22l4.966-1.391A9.997 9.997 0 1011.998 2.003z"/></svg>
+</a>
+
+<!-- BACK TO TOP -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</div>
+
+<script>
+// LOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>{document.getElementById('loader').classList.add('hide')},2000)
+})
+
+// CURSOR
+const cursor=document.getElementById('cursor')
+const ring=document.getElementById('cursorRing')
+document.addEventListener('mousemove',e=>{
+  cursor.style.left=e.clientX-6+'px'
+  cursor.style.top=e.clientY-6+'px'
+  ring.style.left=e.clientX-20+'px'
+  ring.style.top=e.clientY-20+'px'
+})
+document.querySelectorAll('a,button,.feat-card,.service-card,.gal-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2.5)';ring.style.transform='scale(0.5)';ring.style.borderColor='#22c55e'})
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.transform='scale(1)';ring.style.borderColor='#1a6b3a'})
+})
+
+// NAVBAR SCROLL
+const navbar=document.getElementById('navbar')
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>80){navbar.classList.add('scrolled')}
+  else{navbar.classList.remove('scrolled')}
+  const bt=document.getElementById('backTop')
+  if(window.scrollY>400){bt.classList.add('show')}else{bt.classList.remove('show')}
+})
+
+// SCROLL REVEAL
+const reveals=document.querySelectorAll('.reveal')
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}
+  })
+},{threshold:0.1,rootMargin:'0px 0px -50px 0px'})
+reveals.forEach(el=>observer.observe(el))
+
+// FORM SUBMIT
+document.querySelector('.btn-form').addEventListener('click',function(){
+  this.textContent='✓ Enquiry Sent! We will contact you soon.'
+  this.style.background='#1a6b3a'
+  setTimeout(()=>{this.textContent='Send Enquiry — Get Free Trial';this.style.background=''},3000)
+})
+</script>
+</body>
+</html>
